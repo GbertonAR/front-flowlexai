@@ -9,6 +9,7 @@
  * @summary    Componente de Chat para el Asistente Legislativo AI. Interacción asíncrona con XAI.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -52,7 +53,7 @@ const AssistantChat: React.FC<AssistantChatProps> = ({ onClose, tenant_id }) => 
         setIsLoading(true);
 
         try {
-            const response = await fetch('/api/v1/assistant/analyze', {
+            const response = await fetch(API_BASE + '/api/v1/assistant/analyze', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

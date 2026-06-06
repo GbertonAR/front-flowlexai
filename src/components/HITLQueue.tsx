@@ -9,6 +9,7 @@
  * @summary    Componente para la gestión de la cola de revisión humana (HITL).
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, AlertCircle, MessageSquare, ExternalLink, Loader2 } from 'lucide-react';
@@ -31,7 +32,7 @@ const HITLQueue: React.FC = () => {
 
     const fetchQueue = async () => {
         try {
-            const response = await fetch(`/api/v1/hitl/pending?tenant_id=${user?.tenant_id}`, {
+            const response = await fetch(`${API_BASE}/api/v1/hitl/pending?tenant_id=${user?.tenant_id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -55,7 +56,7 @@ const HITLQueue: React.FC = () => {
     const handleAction = async (id: number, action: 'approve' | 'reject', notes: string = "") => {
         setActioningId(id);
         try {
-            const response = await fetch(`/api/v1/hitl/${id}/${action}`, {
+            const response = await fetch(`${API_BASE}/api/v1/hitl/${id}/${action}`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

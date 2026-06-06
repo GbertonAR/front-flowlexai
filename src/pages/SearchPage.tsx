@@ -7,6 +7,7 @@
  * @summary    Motor de búsqueda semántica NLP para jurisprudencia.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, Loader2, FileText, ChevronRight } from 'lucide-react';
@@ -27,7 +28,7 @@ const SearchPage = () => {
 
         try {
             // Usamos el endpoint específico de búsqueda semántica
-            const response = await fetch('/api/v1/assistant/search', {
+            const response = await fetch(API_BASE + '/api/v1/assistant/search', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

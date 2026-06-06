@@ -9,6 +9,7 @@
  * @summary    Panel de control de Gobernanza Neural con métricas en tiempo real y gestión HITL.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShieldCheck, Zap, AlertTriangle, Fingerprint, TrendingUp, Activity, FolderOpen, Layers } from 'lucide-react';
@@ -29,10 +30,10 @@ const GovernancePage = () => {
     const fetchData = async () => {
         try {
             const [metricsRes, trendRes] = await Promise.all([
-                fetch(`/api/v1/metrics/summary?tenant_id=${user?.tenant_id}`, {
+                fetch(`${API_BASE}/api/v1/metrics/summary?tenant_id=${user?.tenant_id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 }),
-                fetch(`/api/v1/metrics/trend?tenant_id=${user?.tenant_id}`, {
+                fetch(`${API_BASE}/api/v1/metrics/trend?tenant_id=${user?.tenant_id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 })
             ]);

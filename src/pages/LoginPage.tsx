@@ -7,6 +7,7 @@
  * @summary    Interfaz de acceso premium con validación JWT.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -33,7 +34,7 @@ const LoginPage = () => {
             formData.append('username', email); // OAuth2 expect username
             formData.append('password', password);
 
-            const response = await fetch('/api/v1/auth/login', {
+            const response = await fetch(API_BASE + '/api/v1/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: formData
@@ -47,7 +48,7 @@ const LoginPage = () => {
             const data = await response.json();
             
             // Obtener perfil detallado
-            const profileRes = await fetch('/api/v1/auth/me', {
+            const profileRes = await fetch(API_BASE + '/api/v1/auth/me', {
                 headers: { 'Authorization': `Bearer ${data.access_token}` }
             });
             const userData = await profileRes.json();

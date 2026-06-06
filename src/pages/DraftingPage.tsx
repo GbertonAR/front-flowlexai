@@ -7,6 +7,7 @@
  * @summary    Editor legislativo asistido por IA con guía educativa interactiva y técnica legislativa avanzada.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -28,7 +29,7 @@ const DraftingPage = () => {
         if (!content.trim()) return;
         setIsAnalyzing(true);
         try {
-            const response = await fetch('/api/v1/drafting/analyze', {
+            const response = await fetch(API_BASE + '/api/v1/drafting/analyze', {
                 method: 'POST',
                 headers: { 
                     'Authorization': `Bearer ${token}`,
@@ -56,7 +57,7 @@ const DraftingPage = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('/api/v1/drafting/extract', {
+            const response = await fetch(API_BASE + '/api/v1/drafting/extract', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData

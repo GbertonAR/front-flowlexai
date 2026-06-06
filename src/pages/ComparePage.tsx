@@ -9,6 +9,7 @@
  * @summary    Página de análisis comparativo elite con Impact Delta y Visual Diff.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -55,7 +56,7 @@ const ComparePage = () => {
         setExecutiveSummary('');
         
         try {
-            const response = await fetch('/api/v1/compare/analyze', {
+            const response = await fetch(API_BASE + '/api/v1/compare/analyze', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

@@ -7,6 +7,7 @@
  * @summary    Panel analítico de rendimiento conectado a métricas reales del backend.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Zap, Database, Users, TrendingUp, Clock, Loader2 } from 'lucide-react';
@@ -19,7 +20,7 @@ const AnalyticsPage = () => {
 
     const fetchMetrics = async () => {
         try {
-            const response = await fetch(`/api/v1/metrics/summary?tenant_id=${user?.tenant_id}`, {
+            const response = await fetch(`${API_BASE}/api/v1/metrics/summary?tenant_id=${user?.tenant_id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();

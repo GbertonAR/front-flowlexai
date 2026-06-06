@@ -7,6 +7,7 @@
  * @summary    Explorador Documental Avanzado con CRUD de metadatos soberanos.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
@@ -40,7 +41,7 @@ const DocumentsPage = () => {
         if (!user?.tenant_id) return;
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/v1/ingest/list/${user.tenant_id}`, {
+            const response = await fetch(`${API_BASE}/api/v1/ingest/list/${user.tenant_id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
@@ -69,7 +70,7 @@ const DocumentsPage = () => {
 
         try {
             const startTime = Date.now();
-            const response = await fetch(`/api/v1/ingest/pdf?tenant_id=${user?.tenant_id || 999}`, {
+            const response = await fetch(`${API_BASE}/api/v1/ingest/pdf?tenant_id=${user?.tenant_id || 999}`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -93,7 +94,7 @@ const DocumentsPage = () => {
         if (!window.confirm(`¿Está seguro de eliminar '${name}'? Esta acción reconstruirá el índice FAISS.`)) return;
         
         try {
-            const response = await fetch(`/api/v1/ingest/document/${user?.tenant_id}?source_name=${encodeURIComponent(name)}`, {
+            const response = await fetch(`${API_BASE}/api/v1/ingest/document/${user?.tenant_id}?source_name=${encodeURIComponent(name)}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -105,7 +106,7 @@ const DocumentsPage = () => {
 
     const handleSaveMetadata = async (name: string, juris: string, jerar: string) => {
         try {
-            const response = await fetch(`/api/v1/ingest/document/${user?.tenant_id}?source_name=${encodeURIComponent(name)}`, {
+            const response = await fetch(`${API_BASE}/api/v1/ingest/document/${user?.tenant_id}?source_name=${encodeURIComponent(name)}`, {
                 method: 'PATCH',
                 headers: { 
                     'Authorization': `Bearer ${token}`,

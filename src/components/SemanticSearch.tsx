@@ -9,6 +9,7 @@
  * @summary    Componente de Búsqueda Semántica Nivel 2. Recuperación directa de fragmentos con metadatos.
  */
 
+import { API_BASE } from '../lib/api';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, X, Layers, FileText, Database } from 'lucide-react';
@@ -33,7 +34,7 @@ const SemanticSearch: React.FC<SemanticSearchProps> = ({ onClose, tenant_id }) =
         if (!query.trim() || isLoading) return;
         setIsLoading(true);
         try {
-            const response = await fetch('/api/v1/assistant/search', {
+            const response = await fetch(API_BASE + '/api/v1/assistant/search', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
