@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 /**
  * @system     FlowState AI
  * @module     api.ts
