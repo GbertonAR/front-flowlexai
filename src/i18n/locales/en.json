@@ -1,0 +1,35 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "assistant": "LexIA Assistant",
+    "settings": "Settings",
+    "logout": "Logout",
+    "search": "Semantic Search",
+    "loading": "Loading..."
+  },
+  "home": {
+    "title": "Legislative Intelligence",
+    "subtitle": "Sovereign neuronal orchestration platform. PDMM technical compliance and full transparency.",
+    "cta": "Explore Knowledge Base",
+    "stats": {
+      "accuracy": "Accuracy",
+      "uptime": "Uptime",
+      "compliance": "WFD Compliance"
+    }
+  },
+  "assistant": {
+    "title": "Legislative Assistant",
+    "subtitle": "ACTIVE NEURONAL ORCHESTRATION (RAG)",
+    "placeholder": "Type your legislative query here (e.g., Budget Law implications)...",
+    "processing": "Processing AI Sovereignty"
+  },
+  "compare": {
+    "title": "Comparative Analysis",
+    "subtitle": "Semantic detection of legislative changes",
+    "analyze_btn": "Start Impact Analysis",
+    "placeholder_a": "Paste XML / Text of the previous version here...",
+    "placeholder_b": "Paste XML / Text of the new version here...",
+    "findings": "Legal Findings",
+    "no_changes": "No substantial changes detected between versions."
+  }
+}

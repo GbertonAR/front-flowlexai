@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #060B1A;
+  --color-mid: #0D1B3E;
+  --color-purple: #6A1B9A;
+  --color-blue: #0D47A1;
+  --color-cian: #0097A7;
+  --color-accent: #00E5FF;
+  --color-red: #C62828;
+
+  --font-title: "Montserrat", sans-serif;
+  --font-body: "Poppins", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-500 font-body selection:bg-accent selection:text-dark;
+    background-color: var(--color-dark);
+    color: white;
+  }
+
+  html.light body {
+    background-color: #f8fafc;
+    color: #0f172a;
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
+}

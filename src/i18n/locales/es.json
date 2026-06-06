@@ -1,0 +1,35 @@
+{
+  "common": {
+    "dashboard": "Panel de Control",
+    "assistant": "Asistente LexIA",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión",
+    "search": "Búsqueda Semántica",
+    "loading": "Cargando..."
+  },
+  "home": {
+    "title": "Inteligencia Legislativa",
+    "subtitle": "Plataforma soberana de orquestación neuronal. Cumplimiento técnico PDMM y transparencia total.",
+    "cta": "Explorar Base de Conocimiento",
+    "stats": {
+      "accuracy": "Precisión",
+      "uptime": "Disponibilidad",
+      "compliance": "Cumplimiento WFD"
+    }
+  },
+  "assistant": {
+    "title": "Asistente Legislativo",
+    "subtitle": "ORQUESTACIÓN NEURONAL ACTIVA (RAG)",
+    "placeholder": "Escriba aquí su consulta legislativa (ej: Implicancias Ley Presupuesto)...",
+    "processing": "Procesando Soberanía AI"
+  },
+  "compare": {
+    "title": "Análisis Comparativo",
+    "subtitle": "Detección semántica de cambios legislativos",
+    "analyze_btn": "Iniciar Análisis de Impacto",
+    "placeholder_a": "Pegue aquí el XML / Texto de la versión anterior...",
+    "placeholder_b": "Pegue aquí el XML / Texto de la versión nueva...",
+    "findings": "Hallazgos Jurídicos",
+    "no_changes": "No se detectaron cambios sustanciales entre versiones."
+  }
+}
