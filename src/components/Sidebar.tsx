@@ -86,11 +86,11 @@ const Sidebar = ({
       <AnimatePresence>
         <motion.aside 
           initial={{ x: -280 }}
-          animate={{ x: 0, width: isCollapsed ? 80 : 280 }}
+          animate={{ x: 0, width: isCollapsed ? 64 : 240 }}
           exit={{ x: -280 }}
-          className={`fixed left-0 top-0 h-screen bg-dark/40 backdrop-blur-2xl border-r border-white/5 z-50 flex flex-col transition-all 
-            ${isOpen ? 'flex' : 'hidden lg:flex'} 
-            ${isCollapsed ? 'p-4 items-center' : 'p-6'}`}
+          className={`fixed left-0 top-0 h-screen bg-dark/40 backdrop-blur-2xl border-r border-white/5 z-50 flex flex-col transition-all
+            ${isOpen ? 'flex' : 'hidden lg:flex'}
+            ${isCollapsed ? 'p-3 items-center' : 'p-4'}`}
         >
             {/* Desktop Toggle */}
             <button
@@ -101,7 +101,7 @@ const Sidebar = ({
             </button>
 
             {/* Logo */}
-            <div className={`flex items-center gap-3 mb-8 ${isCollapsed ? 'justify-center' : 'px-2'}`}>
+            <div className={`flex items-center gap-3 mb-5 ${isCollapsed ? 'justify-center' : 'px-2'}`}>
               <div className="w-10 h-10 shrink-0 rounded-xl bg-linear-to-br from-accent to-blue flex items-center justify-center font-title font-black text-dark text-xl shadow-lg shadow-accent/20">L</div>
               {!isCollapsed && (
                 <span className="font-title text-2xl font-black tracking-tight text-white whitespace-nowrap">
@@ -112,10 +112,10 @@ const Sidebar = ({
 
             {/* User Profile Section */}
             {!isCollapsed && user && (
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8 p-4 rounded-2xl bg-white/5 border border-white/10"
+                    className="mb-5 p-3 rounded-xl bg-white/5 border border-white/10"
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent border border-accent/30">
@@ -138,7 +138,7 @@ const Sidebar = ({
                   to={item.path}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }: { isActive: boolean }) => 
-                    `flex items-center gap-4 py-3 rounded-xl transition-all duration-300 group ${isCollapsed ? 'justify-center px-0' : 'px-4'} ${
+                    `flex items-center gap-3 py-2.5 rounded-xl transition-all duration-300 group ${isCollapsed ? 'justify-center px-0' : 'px-3'} ${
                       isActive 
                       ? 'bg-accent/10 text-accent border border-accent/20' 
                       : 'text-gray-400 hover:bg-white/5 hover:text-white'
@@ -157,7 +157,7 @@ const Sidebar = ({
               {deferredPrompt && (
                 <button 
                   onClick={handleInstall}
-                  className={`w-full flex items-center gap-4 py-3 rounded-xl bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-all font-black ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                  className={`w-full flex items-center gap-3 py-2.5 rounded-xl bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-all font-black ${isCollapsed ? 'justify-center px-0' : 'px-3'}`}
                   title={isCollapsed ? "Instalar App" : undefined}
                 >
                   <Download size={20} />
@@ -166,7 +166,7 @@ const Sidebar = ({
               )}
               <button 
                 onClick={toggleLanguage}
-                className={`w-full flex items-center gap-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                className={`w-full flex items-center gap-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all ${isCollapsed ? 'justify-center px-0' : 'px-3'}`}
                 title={isCollapsed ? "Idioma" : undefined}
               >
                 <Languages size={20} className="text-accent" />
@@ -174,7 +174,7 @@ const Sidebar = ({
               </button>
               <button 
                 onClick={toggleTheme}
-                className={`w-full flex items-center gap-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                className={`w-full flex items-center gap-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all ${isCollapsed ? 'justify-center px-0' : 'px-3'}`}
                 title={isCollapsed ? "Tema" : undefined}
               >
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
@@ -184,7 +184,7 @@ const Sidebar = ({
                   to="/settings"
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }: { isActive: boolean }) => 
-                    `flex items-center gap-4 py-3 rounded-xl transition-all ${isCollapsed ? 'justify-center px-0' : 'px-4'} ${
+                    `flex items-center gap-3 py-2.5 rounded-xl transition-all ${isCollapsed ? 'justify-center px-0' : 'px-3'} ${
                       isActive ? 'text-accent' : 'text-gray-400 hover:text-white'
                     }`
                   }
@@ -195,7 +195,7 @@ const Sidebar = ({
               </NavLink>
               <button 
                 onClick={logout}
-                className={`w-full flex items-center gap-4 py-3 rounded-xl text-red-500 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20 ${isCollapsed ? 'justify-center px-0' : 'px-4'}`}
+                className={`w-full flex items-center gap-3 py-2.5 rounded-xl text-red-500 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20 ${isCollapsed ? 'justify-center px-0' : 'px-3'}`}
                 title={isCollapsed ? "Cerrar Sesión" : undefined}
               >
                 <LogOut size={20} />

@@ -684,6 +684,12 @@ const AuditMode: React.FC<AuditModeProps> = ({ token }) => {
     finally { setExtracting(false); }
   };
 
+  const statusColor = analysis?.status === 'PASS'
+    ? 'text-green-400 border-green-400/30 bg-green-400/10'
+    : analysis?.status === 'WARNING'
+    ? 'text-amber-400 border-amber-400/30 bg-amber-400/10'
+    : 'text-red-400 border-red-400/30 bg-red-400/10';
+
   return (
     <div className="space-y-8">
       <div className="flex flex-wrap gap-4 justify-end">
@@ -704,10 +710,11 @@ const AuditMode: React.FC<AuditModeProps> = ({ token }) => {
             disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {isAnalyzing ? <Loader2 className="animate-spin" size={14} /> : <Sparkles size={14} />}
-          Analizar sesgo
+          Auditoría completa
         </button>
       </div>
 
+      {/* Editor + Panel de métricas */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
           <div className="bg-[#020512] border-2 border-white/10 rounded-[2.5rem] overflow-hidden relative">
@@ -725,7 +732,7 @@ const AuditMode: React.FC<AuditModeProps> = ({ token }) => {
               value={content}
               onChange={e => setContent(e.target.value)}
               placeholder="Ingresá o pegá el texto a auditar..."
-              className="w-full h-[560px] bg-transparent p-10 text-lg leading-relaxed text-gray-200 focus:outline-none resize-none font-serif placeholder:text-gray-800 selection:bg-purple/40"
+              className="w-full h-[480px] bg-transparent p-10 text-lg leading-relaxed text-gray-200 focus:outline-none resize-none font-serif placeholder:text-gray-800 selection:bg-purple/40"
             />
             <div className="absolute bottom-6 right-8 text-[10px] font-mono text-green-400 bg-black/60 px-4 py-1.5 rounded-xl border border-white/10">
               {content.length} ch · {content.split(/\s+/).filter(Boolean).length} palabras
@@ -733,32 +740,70 @@ const AuditMode: React.FC<AuditModeProps> = ({ token }) => {
           </div>
         </div>
 
-        <div className={`p-8 border-2 rounded-[2.5rem] transition-all duration-500 ${
+        {/* Panel métricas rápidas */}
+        <div className={`p-6 border-2 rounded-[2.5rem] transition-all duration-500 ${
           analysis ? 'bg-purple/10 border-purple/30' : 'bg-white/5 border-white/5 opacity-40'
         }`}>
-          <h3 className="flex items-center gap-3 font-black text-purple mb-6 uppercase tracking-[0.3em] text-[10px]">
-            <Sparkles size={16} /> Análisis de sesgo
+          <h3 className="flex items-center gap-2 font-black text-purple mb-5 uppercase tracking-[0.3em] text-[10px]">
+            <Sparkles size={14} /> Métricas de auditoría
           </h3>
           {analysis ? (
             <div className="space-y-4">
+              {/* Score + veredicto */}
               <div className="flex items-center justify-between">
-                <span className="text-4xl font-black text-white">
-                  {((analysis.bias_score as number) * 100).toFixed(0)}%
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-0.5">Índice de sesgo</p>
+                  <span className="text-4xl font-black text-white">
+                    {((analysis.bias_score as number) * 100).toFixed(0)}%
+                  </span>
+                </div>
+                <span className={`px-3 py-1.5 rounded-xl border text-[10px] font-black uppercase tracking-widest ${statusColor}`}>
+                  {analysis.status as string}
                 </span>
-                {analysis.status === 'PASS'
-                  ? <CheckCircle2 className="text-green-400" size={28} />
-                  : <AlertTriangle className="text-amber-400" size={28} />
-                }
               </div>
+
+              {/* Recomendación */}
               <p className="text-xs text-gray-300 leading-relaxed border-l-2 border-purple pl-3">
                 {analysis.recommendations as string}
               </p>
+
+              {/* Tendencia política */}
               {analysis.political_slant && (
-                <p className="text-xs text-gray-400">
-                  Tendencia: <span className="uppercase text-white font-black bg-purple/40 px-2 py-0.5 rounded-lg ml-1">
+                <div className="flex items-center justify-between py-2 border-t border-white/5">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-widest">Tendencia</span>
+                  <span className="text-[10px] uppercase text-white font-black bg-purple/30 px-2 py-0.5 rounded-lg">
                     {analysis.political_slant as string}
                   </span>
-                </p>
+                </div>
+              )}
+
+              {/* Balance de género */}
+              {analysis.gender_balance && (
+                <div className="flex items-center justify-between py-2 border-t border-white/5">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-widest">Género</span>
+                  <span className={`text-[10px] uppercase font-black px-2 py-0.5 rounded-lg ${
+                    analysis.gender_balance === 'balanced'
+                      ? 'bg-green-400/10 text-green-400'
+                      : 'bg-amber-400/10 text-amber-400'
+                  }`}>
+                    {(analysis.gender_balance as string).replace('-', ' ')}
+                  </span>
+                </div>
+              )}
+
+              {/* Sesgos detectados */}
+              {Array.isArray(analysis.detected_biases) && analysis.detected_biases.length > 0 && (
+                <div className="pt-2 border-t border-white/5">
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-2">Sesgos detectados</p>
+                  <ul className="space-y-1">
+                    {(analysis.detected_biases as string[]).map((bias, i) => (
+                      <li key={i} className="flex items-start gap-2 text-xs text-amber-300">
+                        <AlertTriangle size={10} className="mt-0.5 shrink-0" />
+                        <span>{bias}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
           ) : (
@@ -771,6 +816,98 @@ const AuditMode: React.FC<AuditModeProps> = ({ token }) => {
           )}
         </div>
       </div>
+
+      {/* Resultados extendidos — visibles solo con análisis */}
+      <AnimatePresence>
+        {analysis && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="space-y-6"
+          >
+            {/* Alternativas superadoras */}
+            {Array.isArray(analysis.alternatives) && analysis.alternatives.length > 0 && (
+              <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6">
+                <h4 className="flex items-center gap-2 font-black text-accent uppercase tracking-[0.2em] text-[10px] mb-5">
+                  <Zap size={14} /> Alternativas superadoras
+                </h4>
+                <div className="space-y-4">
+                  {(analysis.alternatives as any[]).map((alt, i) => (
+                    <div key={i} className="bg-accent/5 border border-accent/20 rounded-2xl p-5">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <p className="text-sm font-black text-accent">{alt.title}</p>
+                        <button
+                          onClick={() => navigator.clipboard.writeText(alt.text)}
+                          className="shrink-0 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+                          title="Copiar texto alternativo"
+                        >
+                          <Copy size={12} />
+                        </button>
+                      </div>
+                      <p className="text-sm text-gray-200 leading-relaxed font-serif mb-3 bg-black/20 p-4 rounded-xl">
+                        {alt.text}
+                      </p>
+                      <p className="text-xs text-gray-400 border-l-2 border-accent/40 pl-3 italic">
+                        {alt.rationale}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Comparativa legislativa */}
+            {analysis.comparative && (analysis.comparative.national || analysis.comparative.international) && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {analysis.comparative.national && (
+                  <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6">
+                    <h4 className="flex items-center gap-2 font-black text-blue uppercase tracking-[0.2em] text-[10px] mb-4">
+                      <Scale size={14} /> Marco Nacional
+                    </h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">{analysis.comparative.national as string}</p>
+                  </div>
+                )}
+                {analysis.comparative.international && (
+                  <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6">
+                    <h4 className="flex items-center gap-2 font-black text-cian uppercase tracking-[0.2em] text-[10px] mb-4">
+                      <BookOpen size={14} /> Marco Internacional
+                    </h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">{analysis.comparative.international as string}</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Espíritu legislativo */}
+            {analysis.legislative_spirit && (
+              <div className="bg-white/5 border border-white/10 rounded-[2rem] p-6">
+                <h4 className="flex items-center gap-2 font-black text-purple uppercase tracking-[0.2em] text-[10px] mb-4">
+                  <ShieldCheck size={14} /> Espíritu legislativo
+                </h4>
+                {analysis.legislative_spirit.intent && (
+                  <p className="text-sm text-gray-200 leading-relaxed mb-5 bg-purple/5 border border-purple/20 rounded-xl p-4">
+                    {analysis.legislative_spirit.intent as string}
+                  </p>
+                )}
+                {Array.isArray(analysis.legislative_spirit.suggestions) && analysis.legislative_spirit.suggestions.length > 0 && (
+                  <div>
+                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-3">Sugerencias pedagógicas</p>
+                    <ul className="space-y-2">
+                      {(analysis.legislative_spirit.suggestions as string[]).map((s, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                          <ChevronRight size={14} className="text-purple mt-0.5 shrink-0" />
+                          <span>{s}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

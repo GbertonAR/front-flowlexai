@@ -136,20 +136,20 @@ const DocumentsPage = () => {
     return (
         <div className="space-y-8 max-w-7xl mx-auto pb-20">
             {/* Header */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 bg-white/5 p-10 rounded-[3rem] border border-white/5 relative overflow-hidden group">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 bg-white/5 p-7 rounded-[2rem] border border-white/5 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue/5 blur-[100px] rounded-full -mr-32 -mt-32" />
                 <div className="relative z-10">
-                    <h1 className="text-6xl font-black font-title mb-4 tracking-tighter leading-none">
+                    <h1 className="text-4xl font-black font-title mb-2 tracking-tighter leading-none">
                         Archivo <span className="text-blue">Soberano</span>
                     </h1>
-                    <p className="text-gray-400 font-light max-w-md">Gestión soberana de integridad legislativa.</p>
+                    <p className="text-gray-400 font-light max-w-md text-sm">Gestión soberana de integridad legislativa.</p>
                 </div>
-                
+
                 <label className="relative z-10 shrink-0">
                     <input type="file" className="hidden" onChange={handleUpload} disabled={isUploading} />
-                    <div className="px-10 py-5 bg-linear-to-br from-blue to-blue-700 text-white font-black rounded-[2rem] shadow-2xl shadow-blue/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-4 cursor-pointer">
-                        {isUploading ? <Loader2 className="animate-spin" size={24} /> : <Upload size={24} />}
-                        <span className="tracking-widest uppercase text-sm font-black">Cargar Norma</span>
+                    <div className="px-6 py-3 bg-linear-to-br from-blue to-blue-700 text-white font-black rounded-2xl shadow-lg shadow-blue/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer">
+                        {isUploading ? <Loader2 className="animate-spin" size={18} /> : <Upload size={18} />}
+                        <span className="tracking-widest uppercase text-xs font-black">Cargar Norma</span>
                     </div>
                 </label>
             </div>
@@ -161,7 +161,7 @@ const DocumentsPage = () => {
                     <input 
                         type="text" 
                         placeholder="Buscar por título..."
-                        className="w-full pl-14 pr-6 py-4 bg-white/5 border border-white/5 rounded-2xl text-sm font-medium focus:outline-hidden focus:border-blue/50 transition-all"
+                        className="w-full pl-14 pr-6 py-3 bg-white/5 border border-white/5 rounded-2xl text-sm font-medium focus:outline-hidden focus:border-blue/50 transition-all"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -169,7 +169,7 @@ const DocumentsPage = () => {
                 
                 <div className="flex gap-4">
                     <select 
-                        className="px-6 py-4 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 focus:outline-hidden focus:border-blue/50 cursor-pointer"
+                        className="px-4 py-3 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 focus:outline-hidden focus:border-blue/50 cursor-pointer"
                         value={filterJurisdiccion}
                         onChange={(e) => setFilterJurisdiccion(e.target.value)}
                     >
@@ -178,7 +178,7 @@ const DocumentsPage = () => {
                     </select>
 
                     <select 
-                        className="px-6 py-4 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 focus:outline-hidden focus:border-blue/50 cursor-pointer"
+                        className="px-4 py-3 bg-white/5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-400 focus:outline-hidden focus:border-blue/50 cursor-pointer"
                         value={filterJerarquia}
                         onChange={(e) => setFilterJerarquia(e.target.value)}
                     >
@@ -194,11 +194,11 @@ const DocumentsPage = () => {
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-white/5 bg-white/[0.02]">
-                                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Documento</th>
-                                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Jurisdicción</th>
-                                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Jerarquía</th>
-                                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Chunks</th>
-                                <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-right">Acciones</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Documento</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Jurisdicción</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Jerarquía</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-center">Chunks</th>
+                                <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 text-right">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -206,7 +206,7 @@ const DocumentsPage = () => {
                                 <tr><td colSpan={5} className="py-32 text-center"><Loader2 className="animate-spin mx-auto text-blue" size={40} /></td></tr>
                             ) : filteredDocs.map((doc, idx) => (
                                 <tr key={idx} className="group hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-8 py-6">
+                                    <td className="px-6 py-4">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-2xl bg-blue/10 flex items-center justify-center text-blue shrink-0">
                                                 <File size={20} />
@@ -217,19 +217,19 @@ const DocumentsPage = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6 text-center">
+                                    <td className="px-6 py-4 text-center">
                                         <span className="px-4 py-2 rounded-xl bg-cian/10 text-cian text-[10px] font-black uppercase tracking-widest border border-cian/20">
                                             {doc.jurisdiccion}
                                         </span>
                                     </td>
-                                    <td className="px-8 py-6 text-center">
+                                    <td className="px-6 py-4 text-center">
                                         <div className="flex items-center justify-center gap-2">
                                             <Layers size={14} className="text-blue/50" />
                                             <span className="text-xs font-bold text-gray-300">{doc.jerarquia}</span>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6 text-center font-mono text-xs text-blue">{doc.chunks}</td>
-                                    <td className="px-8 py-6 text-right">
+                                    <td className="px-6 py-4 text-center font-mono text-xs text-blue">{doc.chunks}</td>
+                                    <td className="px-6 py-4 text-right">
                                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button 
                                                 onClick={() => { setSelectedDoc(doc); setIsEditModalOpen(true); }}
